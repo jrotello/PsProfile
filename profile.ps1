@@ -1,7 +1,12 @@
 ################################################################################################
-#### Set up prompt, adding the git prompt parts from posh-get ##################################
+#### Import modules ############################################################################
 ################################################################################################
-Import-Module -Name "posh-git"
+Import-Module "posh-git"
+Import-Module $PSScriptRoot\PSProfile.psm1
+
+################################################################################################
+#### Set up prompt, adding the git prompt parts from posh-git ##################################
+################################################################################################
 $gitStatus = $true
 $global:GitPromptSettings.EnableFileStatus = $false
 
@@ -31,14 +36,7 @@ function global:prompt {
 ################################################################################################
 #### Login to Azure if necessary ###############################################################
 ################################################################################################
-try {
-    $cred_path = '~\.pscredentials\azure.credential'
-    if (Test-Path $cred_path -PathType Leaf) {
-        Login-AzureRmAccount -Credential (Import-Clixml $cred_path)
-    }
-} finally {
-    Remove-Variable cred_path
-}
+Connect-AzureRm ~\.pscredentials\azure.credential
 
 ################################################################################################
 #### Miscellanous ##############################################################################
