@@ -2,6 +2,7 @@
 #### Import modules ############################################################################
 ################################################################################################
 Import-Module "posh-git"
+Import-Module "CredentialManager"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
 ################################################################################################
@@ -36,7 +37,13 @@ function global:prompt {
 ################################################################################################
 #### Login to Azure if necessary ###############################################################
 ################################################################################################
-Connect-AzureRm ~\.pscredentials\azure.credential
+$cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
+if ($cred -ne $null) {
+    Write-Host -ForegroundColor Green "############################################################################" 
+    Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################" 
+    Write-Host -ForegroundColor Green "############################################################################"     
+    Login-AzureRmAccount -Credential $cred
+}
 
 ################################################################################################
 #### Display any global git aliases ############################################################
