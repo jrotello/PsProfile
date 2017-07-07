@@ -7,6 +7,9 @@ function Connect-AzureRm {
     )
 
     if (Test-Path $CredentialFilePath -PathType Leaf) {
+        Write-Host -ForegroundColor Green "############################################################################"
+        Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
+        Write-Host -ForegroundColor Green "############################################################################"
         Login-AzureRmAccount -Credential (Import-Clixml $CredentialFilePath)
     } else {
         Write-Verbose "Credential file ($CredentialFilePath) not found. Continuing without signing into Azure."
