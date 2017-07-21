@@ -3,13 +3,15 @@
 ################################################################################################
 Import-Module "posh-git"
 Import-Module "CredentialManager"
+Import-Module "PsPowerline"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
 ################################################################################################
 #### Set up prompt, adding the git prompt parts from posh-git ##################################
 ################################################################################################
-$gitStatus = $true
+
 $global:GitPromptSettings.EnableFileStatus = $false
+$gitStatus = $true
 
 function checkGit($Path) {
     if (Test-Path -Path (Join-Path $Path '.git/') ) {

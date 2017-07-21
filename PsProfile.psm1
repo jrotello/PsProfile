@@ -7,7 +7,32 @@ function Update-InstalledModules {
         Update-Module
 }
 
+# Taken from: https://mnaoumov.wordpress.com/2014/06/14/unicode-literals-in-powershell/
+function Get-UnicodeCharacter {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$Code
+    )
+
+    if ((0 -le $Code) -and ($Code -le 0xFFFF))
+    {
+        return [char] $Code
+    }
+
+    if ((0x10000 -le $Code) -and ($Code -le 0x10FFFF))
+    {
+        return [char]::ConvertFromUtf32($Code)
+    }
+
+    throw "Invalid character code $Code"
+}
+
+################################################################################################
+#### Aliases ###################################################################################
+################################################################################################
+Set-Alias -Name U -Value Get-UnicodeCharacter
+
 ################################################################################################
 #### Export Members ############################################################################
 ################################################################################################
-Export-ModuleMember -Function *
+Export-ModuleMember -Function * -Alias *
