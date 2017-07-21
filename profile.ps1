@@ -10,40 +10,40 @@ Import-Module $PSScriptRoot\PSProfile.psm1
 #### Set up prompt, adding the git prompt parts from posh-git ##################################
 ################################################################################################
 
-$global:GitPromptSettings.EnableFileStatus = $false
-$gitStatus = $true
+# $global:GitPromptSettings.EnableFileStatus = $false
+# $gitStatus = $true
 
-function checkGit($Path) {
-    if (Test-Path -Path (Join-Path $Path '.git/') ) {
-        Write-VcsStatus
-        return
-    }
-    $SplitPath = split-path $path
-    if ($SplitPath) {
-        checkGit($SplitPath)
-    }
-}
+# function checkGit($Path) {
+#     if (Test-Path -Path (Join-Path $Path '.git/') ) {
+#         Write-VcsStatus
+#         return
+#     }
+#     $SplitPath = split-path $path
+#     if ($SplitPath) {
+#         checkGit($SplitPath)
+#     }
+# }
 
-function global:prompt {
-    $realLASTEXITCODE = $LASTEXITCODE
-    $Host.UI.RawUI.ForegroundColor = "White"
-    Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor Green
-    if($gitStatus){
-        checkGit($pwd.ProviderPath)
-    }
-    $global:LASTEXITCODE = $realLASTEXITCODE
-    Write-Host "`n$([char]0x3BB)" -NoNewLine -ForegroundColor "DarkGray"
-    return " "
-}
+# function global:prompt {
+#     $realLASTEXITCODE = $LASTEXITCODE
+#     $Host.UI.RawUI.ForegroundColor = "White"
+#     Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor Green
+#     if($gitStatus){
+#         checkGit($pwd.ProviderPath)
+#     }
+#     $global:LASTEXITCODE = $realLASTEXITCODE
+#     Write-Host "`n$([char]0x3BB)" -NoNewLine -ForegroundColor "DarkGray"
+#     return " "
+# }
 
 ################################################################################################
 #### Login to Azure if necessary ###############################################################
 ################################################################################################
 $cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
 if ($cred -ne $null) {
-    Write-Host -ForegroundColor Green "############################################################################" 
-    Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################" 
-    Write-Host -ForegroundColor Green "############################################################################"     
+    Write-Host -ForegroundColor Green "############################################################################"
+    Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
+    Write-Host -ForegroundColor Green "############################################################################"
     Login-AzureRmAccount -Credential $cred
 }
 
