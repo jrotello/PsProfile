@@ -7,36 +7,6 @@ Import-Module "PsPowerline"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
 ################################################################################################
-#### Set up prompt, adding the git prompt parts from posh-git ##################################
-################################################################################################
-
-# $global:GitPromptSettings.EnableFileStatus = $false
-# $gitStatus = $true
-
-# function checkGit($Path) {
-#     if (Test-Path -Path (Join-Path $Path '.git/') ) {
-#         Write-VcsStatus
-#         return
-#     }
-#     $SplitPath = split-path $path
-#     if ($SplitPath) {
-#         checkGit($SplitPath)
-#     }
-# }
-
-# function global:prompt {
-#     $realLASTEXITCODE = $LASTEXITCODE
-#     $Host.UI.RawUI.ForegroundColor = "White"
-#     Write-Host $pwd.ProviderPath -NoNewLine -ForegroundColor Green
-#     if($gitStatus){
-#         checkGit($pwd.ProviderPath)
-#     }
-#     $global:LASTEXITCODE = $realLASTEXITCODE
-#     Write-Host "`n$([char]0x3BB)" -NoNewLine -ForegroundColor "DarkGray"
-#     return " "
-# }
-
-################################################################################################
 #### Login to Azure if necessary ###############################################################
 ################################################################################################
 if (Test-Path env:\PSPROFILE_AZURE) {
@@ -65,6 +35,8 @@ Set-Location ~
 if ((Get-Host).UI.RawUI -ne $null) {
     (Get-Host).UI.RawUI.WindowTitle = "[$env:COMPUTERNAME] $($(Get-Host).UI.RawUI.WindowTitle)"
 }
+
+#$global:GitPromptSettings.EnableFileStatus = $false
 
 # . "$PSScriptRoot\ps-motd\Get-MOTD.ps1"
 # Get-MOTD
