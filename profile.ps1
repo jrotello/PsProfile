@@ -39,12 +39,14 @@ Import-Module $PSScriptRoot\PSProfile.psm1
 ################################################################################################
 #### Login to Azure if necessary ###############################################################
 ################################################################################################
-$cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
-if ($cred -ne $null) {
-    Write-Host -ForegroundColor Green "############################################################################"
-    Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
-    Write-Host -ForegroundColor Green "############################################################################"
-    Login-AzureRmAccount -Credential $cred
+if (Test-Path env:\PSPROFILE_AZURE) {
+    $cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
+    if ($cred -ne $null) {
+        Write-Host -ForegroundColor Green "############################################################################"
+        Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
+        Write-Host -ForegroundColor Green "############################################################################"
+        Login-AzureRmAccount -Credential $cred
+    }
 }
 
 ################################################################################################
