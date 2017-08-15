@@ -4,6 +4,7 @@
 Import-Module "posh-git"
 Import-Module "CredentialManager"
 Import-Module "PsPowerline"
+Import-Module "VSSetup"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
 ################################################################################################
@@ -36,7 +37,10 @@ if ((Get-Host).UI.RawUI -ne $null) {
     (Get-Host).UI.RawUI.WindowTitle = "[$env:COMPUTERNAME] $($(Get-Host).UI.RawUI.WindowTitle)"
 }
 
-#$global:GitPromptSettings.EnableFileStatus = $false
+if (Get-VSSetupInstance -ne $null) {
+    $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
+    $Env:Path = "$Env:MSBuildPath;$Env:Path"
+}
 
-# . "$PSScriptRoot\ps-motd\Get-MOTD.ps1"
-# Get-MOTD
+
+#$global:GitPromptSettings.EnableFileStatus = $false

@@ -27,7 +27,14 @@ function installModule {
     }
 }
 
-installModule('posh-git', 'AzureRM', 'AzureAD', 'CredentialManager', 'PsHosts')
+installModule(@(
+    'posh-git',
+    'AzureRM',
+    'AzureAD',
+    'CredentialManager',
+    'PsHosts',
+    'VSSetup'
+))
 
 ################################################################################################
 #### Clone git repositories ####################################################################
