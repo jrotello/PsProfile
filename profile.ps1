@@ -37,7 +37,7 @@ if ((Get-Host).UI.RawUI -ne $null) {
     (Get-Host).UI.RawUI.WindowTitle = "[$env:COMPUTERNAME] $($(Get-Host).UI.RawUI.WindowTitle)"
 }
 
-if (Get-VSSetupInstance -ne $null) {
+if ((Get-VSSetupInstance) -ne $null) {
     $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
     $Env:Path = "$Env:MSBuildPath;$Env:Path"
 }
