@@ -2,6 +2,7 @@
 #### Import modules ############################################################################
 ################################################################################################
 Import-Module "posh-git"
+Import-Module "posh-docker"
 Import-Module "CredentialManager"
 Import-Module "PsPowerline"
 Import-Module "VSSetup"

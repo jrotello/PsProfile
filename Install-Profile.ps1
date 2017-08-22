@@ -29,6 +29,7 @@ function installModule {
 
 installModule(@(
     'posh-git',
+    'posh-docker',
     'AzureRM',
     'AzureAD',
     'CredentialManager',
