@@ -43,5 +43,9 @@ if ((Get-VSSetupInstance) -ne $null) {
     $Env:Path = "$Env:MSBuildPath;$Env:Path"
 }
 
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+    Import-Module "$ChocolateyProfile"
+}
 
 #$global:GitPromptSettings.EnableFileStatus = $false
