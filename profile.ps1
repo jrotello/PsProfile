@@ -34,9 +34,7 @@ git config --get-regexp alias
 ################################################################################################
 Set-Location ~
 
-if ((Get-Host).UI.RawUI -ne $null) {
-    (Get-Host).UI.RawUI.WindowTitle = "[$env:COMPUTERNAME] $($(Get-Host).UI.RawUI.WindowTitle)"
-}
+Get-ChildItem Alias:\curl | Remove-Item
 
 if ((Get-VSSetupInstance) -ne $null) {
     $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
