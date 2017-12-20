@@ -26,7 +26,9 @@ if (Test-Path env:\PSPROFILE_AZURE) {
 ################################################################################################
 Set-Location ~
 
-Get-ChildItem Alias:\curl | Remove-Item
+if (Test-Path Alias:\curl) {
+    Get-ChildItem Alias:\curl | Remove-Item
+}
 
 if ((Get-VSSetupInstance) -ne $null) {
     $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
