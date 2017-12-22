@@ -27,6 +27,23 @@ function Get-UnicodeCharacter {
     throw "Invalid character code $Code"
 }
 
+function Restart-GpgAgent {
+    [CmdletBinding()]
+    param()
+
+    $gpgConnectAgent = Get-Command gpg-connect-agent.exe
+    if (-not $gpgConnectAgent) {
+        Write-Error "Unable to find 'gpg-connect-agent.exe"
+    }   
+    
+    Write-Verbose "Using gpg-connect-agent.exe at $($gpgConnectAgent.Source)"
+    
+    Write-Verbose "Stopping existing agent"
+    gpg-connect-agent killagent /bye
+    Write-Verbose "Starting agent"    
+    gpg-connect-agent /bye
+}
+
 ################################################################################################
 #### Aliases ###################################################################################
 ################################################################################################
