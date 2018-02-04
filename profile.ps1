@@ -40,4 +40,12 @@ if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
 }
 
+Set-PSReadlineOption -HistoryNoDuplicates 
+Set-PSReadlineOption -HistorySearchCursorMovesToEnd
+Set-PSReadlineOption -MaximumHistoryCount 4000 
+Set-PSReadlineOption -BellStyle Visual
+
+Set-PSReadlineKeyHandler -Chord 'Ctrl+Shift+UpArrow' -Function HistorySearchBackward
+Set-PSReadlineKeyHandler -Chord 'Ctrl+Shift+DownArrow' -Function HistorySearchForward
+
 #$global:GitPromptSettings.EnableFileStatus = $false
