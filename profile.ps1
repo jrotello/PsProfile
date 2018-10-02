@@ -4,7 +4,6 @@
 Import-Module "posh-git"
 Import-Module "posh-docker"
 Import-Module "CredentialManager"
-Import-Module "PsPowerline"
 Import-Module "VSSetup"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
@@ -13,7 +12,7 @@ Import-Module $PSScriptRoot\PSProfile.psm1
 ################################################################################################
 if (Test-Path env:\PSPROFILE_AZURE) {
     $cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
-    if ($cred -ne $null) {
+    if ($null -ne $cred) {
         Write-Host -ForegroundColor Green "############################################################################"
         Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
         Write-Host -ForegroundColor Green "############################################################################"
@@ -30,7 +29,7 @@ if (Test-Path Alias:\curl) {
     Get-ChildItem Alias:\curl | Remove-Item
 }
 
-if ((Get-VSSetupInstance) -ne $null) {
+if ($null -ne (Get-VSSetupInstance)) {
     $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
     $Env:Path = "$Env:MSBuildPath;$Env:Path"
 }

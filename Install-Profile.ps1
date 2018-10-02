@@ -18,7 +18,7 @@ function installModule {
     )
 
     foreach ($name in $Names) {
-        if ((Get-InstalledModule $name -ErrorAction Ignore) -eq $null) {
+        if ($nell -eq (Get-InstalledModule $name -ErrorAction Ignore)) {
             Write-Warning "Missing $name module, installing..."
             Install-Module $name
         } else {
@@ -56,8 +56,5 @@ function cloneModuleRepository {
         Write-Warning "'$ModuleName' repository ($RepoUrl) already cloned, skipping..."
     }
 }
-
-cloneModuleRepository -ModuleName "ps-motd" -RepoUrl "https://github.com/mmillar-bolis/ps-motd.git"
-cloneModuleRepository -ModuleName "PsPowerline" -RepoUrl "https://github.com/jrotello/PSPowerline.git"
 
 Write-Host 'Profile installation complete!' -ForegroundColor Green
