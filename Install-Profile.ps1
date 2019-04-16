@@ -18,7 +18,7 @@ function installModule {
     )
 
     foreach ($name in $Names) {
-        if ($nell -eq (Get-InstalledModule $name -ErrorAction Ignore)) {
+        if ($null -eq (Get-InstalledModule $name -ErrorAction Ignore)) {
             Write-Warning "Missing $name module, installing..."
             Install-Module $name
         } else {
@@ -30,7 +30,7 @@ function installModule {
 installModule(@(
     'posh-git',
     'posh-docker',
-    'AzureRM',
+    'Az',
     'AzureAD',
     'CredentialManager',
     'PsHosts',

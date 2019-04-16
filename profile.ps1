@@ -8,19 +8,6 @@ Import-Module "VSSetup"
 Import-Module $PSScriptRoot\PSProfile.psm1
 
 ################################################################################################
-#### Login to Azure if necessary ###############################################################
-################################################################################################
-if (Test-Path env:\PSPROFILE_AZURE) {
-    $cred = Get-StoredCredential -Target "PsProfile - Azure Resource Manager"
-    if ($null -ne $cred) {
-        Write-Host -ForegroundColor Green "############################################################################"
-        Write-Host -ForegroundColor Green "#### Connecting to Azure Resource Manager ##################################"
-        Write-Host -ForegroundColor Green "############################################################################"
-        Login-AzureRmAccount -Credential $cred
-    }
-}
-
-################################################################################################
 #### Miscellanous ##############################################################################
 ################################################################################################
 Set-Location ~
@@ -30,7 +17,7 @@ if (Test-Path Alias:\curl) {
 }
 
 if ($null -ne (Get-VSSetupInstance)) {
-    $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\bin"
+    $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\Current\Bin"
     $Env:Path = "$Env:MSBuildPath;$Env:Path"
 }
 

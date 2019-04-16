@@ -1,12 +1,3 @@
-function Update-InstalledModules {
-    [CmdletBinding()]
-    param()
-
-    Get-InstalledModule |
-        Where-Object { (-not $_.Name.StartsWith('AzureRM.')) -and (-not $_.Name.StartsWith('Azure.')) } |
-        Update-Module
-}
-
 # Taken from: https://mnaoumov.wordpress.com/2014/06/14/unicode-literals-in-powershell/
 function Get-UnicodeCharacter {
     param(
