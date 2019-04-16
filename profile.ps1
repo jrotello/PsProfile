@@ -16,8 +16,15 @@ if (Test-Path Alias:\curl) {
     Get-ChildItem Alias:\curl | Remove-Item
 }
 
-if ($null -ne (Get-VSSetupInstance)) {
-    $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\Current\Bin"
+$vsinstance = Get-VSSetupInstance | Select-VSSetupInstance -Latest
+if ($null -ne $vsinstance) {
+
+    if ($vsinstance.InstallationVersion.Major -eq 15) {
+        $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\15.0\Bin"
+    } else {
+        $Env:MSBuildPath = "$((Get-VSSetupInstance).InstallationPath)\MSBuild\Current\Bin"
+    }
+
     $Env:Path = "$Env:MSBuildPath;$Env:Path"
 }
 
